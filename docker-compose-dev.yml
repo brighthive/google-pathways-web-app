@@ -1,22 +1,22 @@
 version: '3'
 services:
-    # google_pathways_api:
-    #   image: brighthive/google_pathways_api:latest
-    #   depends_on:
-    #     - postgres
-    #   environment:
-    #     - APP_ENV=LOCAL
-    #     - PG_USER=brighthive_user
-    #     - PG_PASSWORD=password
-    #     - PG_HOSTNAME=postgres
-    #     - PG_DB=google_pathways_api
-    #     - SECRET_KEY=supersecretkey
-    #   ports:
-    #     - "8000:8000"
-    #   volumes:
-    #     - ../:/google_pathways_api
-    #   stdin_open: true
-    #   tty: true
+    google_pathways_api:
+      image: brighthive/google_pathways_api:latest
+      depends_on:
+        - postgres
+      environment:
+        - APP_ENV=LOCAL
+        - PG_USER=brighthive_user
+        - PG_PASSWORD=password
+        - PG_HOSTNAME=postgres
+        - PG_DB=google_pathways_api
+        - SECRET_KEY=supersecretkey
+      ports:
+        - "8000:8000"
+      volumes:
+        - ./google_pathways_api:/google-pathways-api/google_pathways_api
+      stdin_open: true
+      tty: true
     postgres:
       image: postgres:12
       environment:
@@ -24,4 +24,4 @@ services:
         - POSTGRES_PASSWORD=password
         - POSTGRES_DB=google_pathways_api
       ports:
-        - "5432:5432"
+        - "5433:5432"
