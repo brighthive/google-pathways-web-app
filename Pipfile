@@ -10,6 +10,9 @@ flask = "*"
 flask-restful = "*"
 gunicorn = "*"
 gevent = "*"
+flask-sqlalchemy = "*"
+flask-migrate = "*"
+psycopg2-binary = "*"
 
 [requires]
 python_version = "3.7"
