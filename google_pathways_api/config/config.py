@@ -71,6 +71,8 @@ class Configuration(object):
                 self.environment = environment
                 self.debug = True
                 self.testing = True
+
+                self.page_limit = fields.get('page_limit', 20)
             except Exception:
                 raise ConfigurationError(
                     'Invalid key in JSON configuration. Please check the configuration.')
@@ -87,12 +89,14 @@ class Configuration(object):
             raise ConfigurationError(
                 'Cannot find environment \'{}\' in JSON configuration.')
 
+
 class LocalConfiguration(Configuration):
     """Configuration class for local development."""
     def __init__(self):
         self.from_json('local')
         self.debug = True
         self.testing = True
+
 
 class DevelopmentTestingConfiguration(Configuration):
     """Configuration class for deployment of app on the Dev Testing server."""
@@ -102,6 +106,7 @@ class DevelopmentTestingConfiguration(Configuration):
         self.debug = True
         self.testing = False
 
+
 class ProductionConfiguration(Configuration):
     """Configuratuon class for production deployment."""
 
@@ -109,6 +114,7 @@ class ProductionConfiguration(Configuration):
         self.from_json('production')
         self.debug = False
         self.testing = False
+
 
 class ConfigurationFactory(object):
     @staticmethod
