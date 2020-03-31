@@ -39,7 +39,12 @@ class Pathways(Resource):
 
         links = self._make_links(pathways_programs)
 
-        pathways_program_json_ld = json.dumps(pathways_programs.items[0].pathways_program)
+        try: 
+            pathways_program_json_ld = pathways_programs.items[0].pathways_program
+        except IndexError:
+            pathways_program_json_ld = {}
+
+        pathways_program_json_ld = json.dumps(pathways_program_json_ld)
 
         pathways_program_to_render = {
             "program": json.loads(pathways_program_json_ld),
