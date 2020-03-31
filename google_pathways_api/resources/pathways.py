@@ -11,6 +11,21 @@ config = ConfigurationFactory.from_env()
 
 
 class Pathways(Resource):
+    def _make_links(self, pathways_programs):
+        next_url = ''
+        if pathways_programs.has_next:
+            next_url = url_for('pathways', page=pathways_programs.next_num)
+        
+        prev_url = ''
+        if pathways_programs.has_prev:
+            prev_url = url_for('pathways', page=pathways_programs.prev_num)
+        
+        links = []
+        links.append({"rel": "next", "href": next_url })
+        links.append({"rel": "prev", "href": prev_url })
+
+        return links
+
     def get(self):
         '''
         Returns a paginated view of all Pathways-formatted programs – one program per page.
@@ -21,20 +36,10 @@ class Pathways(Resource):
         pathways_programs = PathwaysProgram.query \
             .order_by(PathwaysProgram.updated_at.desc()) \
             .paginate(page, entries_per_page, False)
-        
-        next_url = ''
-        if pathways_programs.has_next:
-            next_url = url_for('pathways', page=pathways_programs.next_num)
-        
-        prev_url = ''
-        if pathways_programs.has_prev:
-            prev_url = url_for('pathways', page=pathways_programs.prev_num)
-        
-        pathways_program_json_ld = json.dumps(pathways_programs.items[0].pathways_program)
 
-        links = []
-        links.append({"rel": "next", "href": next_url })
-        links.append({"rel": "prev", "href": prev_url })
+        links = self._make_links(pathways_programs)
+
+        pathways_program_json_ld = json.dumps(pathways_programs.items[0].pathways_program)
 
         pathways_program_to_render = {
             "program": json.loads(pathways_program_json_ld),

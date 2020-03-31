@@ -71,8 +71,6 @@ class Configuration(object):
                 self.environment = environment
                 self.debug = True
                 self.testing = True
-
-                self.entries_per_page = fields.get('entries_per_page', 20)
             except Exception:
                 raise ConfigurationError(
                     'Invalid key in JSON configuration. Please check the configuration.')
