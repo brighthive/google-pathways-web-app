@@ -4,7 +4,7 @@ from flask_restful import Api
 
 from google_pathways_api.config.config import ConfigurationFactory
 from google_pathways_api.db.models import db
-from google_pathways_api.resources.pathways import Pathways, PathwaysDetail
+from google_pathways_api.resources.pathways import Pathways
 
 config = ConfigurationFactory.from_env()
 
@@ -20,6 +20,5 @@ def create_app():
     # Add resources
     api = Api(app)
     api.add_resource(Pathways, '/pathways')
-    api.add_resource(PathwaysDetail, '/pathways_program_id/<string:pathways_id>')
 
     return app

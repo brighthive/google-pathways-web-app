@@ -1,8 +1,11 @@
+import json
+
+from flask import make_response, render_template, request, url_for
 from flask_restful import Resource
 
+from google_pathways_api.config.config import ConfigurationFactory
 from google_pathways_api.db.models import PathwaysProgram
 from google_pathways_api.utils.errors import PathwaysProgramDoesNotExist
-from google_pathways_api.config.config import ConfigurationFactory
 
 config = ConfigurationFactory.from_env()
 
@@ -10,32 +13,36 @@ config = ConfigurationFactory.from_env()
 class Pathways(Resource):
     def get(self):
         '''
-        Returns all instances of the PathwaysProgram model.
+        Returns a paginated view of all Pathways-formatted programs – one program per page.
         '''
-        offset = 0
-        limit = config.page_limit
-        args = request.args
-
-        try:
-            offset = request.args['offset']
-        except Exception:
-            pass
-
-        try:
-            limit = request.args['limit']
-        except Exception:
-            pass
-
-        return {'test': 'data'}, 200
-    
-
-
-class PathwaysDetail(Resource):
-    def get(self, pathways_program_id: str):
-        pathways_program = PathwaysProgram.query.filter_by(pathways_program_id=pathways_program_id).first()
-        if not pathways_program:
-            raise PathwaysProgramDoesNotExist
+        headers = {'Content-Type': 'text/html'}
+        entries_per_page = 1
+        page = request.args.get('page', 1, type=int)
+        pathways_programs = PathwaysProgram.query \
+            .order_by(PathwaysProgram.updated_at.desc()) \
+            .paginate(page, entries_per_page, False)
         
-        pathways_program_json_ld = pathways_program['pathways_program']
+        next_url = ''
+        if pathways_programs.has_next:
+            next_url = url_for('pathways', page=pathways_programs.next_num)
+        
+        prev_url = ''
+        if pathways_programs.has_prev:
+            prev_url = url_for('pathways', page=pathways_programs.prev_num)
+        
+        pathways_program_json_ld = json.dumps(pathways_programs.items[0].pathways_program)
 
-        return pathways_program_json_ld, 200
+        links = []
+        links.append({"rel": "next", "href": next_url })
+        links.append({"rel": "prev", "href": prev_url })
+
+        pathways_program_to_render = {
+            "program": json.loads(pathways_program_json_ld),
+            "links": links
+        }
+
+        return make_response(render_template('pathways.html', 
+                                pathways_programs=pathways_program_json_ld, 
+                                pathways_program_to_render=json.dumps(pathways_program_to_render)), 200, headers)
+
+
