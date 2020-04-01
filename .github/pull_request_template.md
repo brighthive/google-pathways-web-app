@@ -8,8 +8,8 @@ A summary of the pull request (PR) and the issue it resolves. Please include the
 
 ### Basic
 
-- [] Did you write tests for the code in this PR?
-- [] Did you document your changes in the README and/or in docstrings (as needed)?
+- [ ] Did you write tests for the code in this PR?
+- [ ] Did you document your changes in the README and/or in docstrings (as needed)?
 
 ### Security
 
