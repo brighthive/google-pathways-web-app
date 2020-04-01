@@ -6,10 +6,10 @@ from google_pathways_api.config.config import ConfigurationFactory
 from google_pathways_api.db.models import db
 from google_pathways_api.resources.pathways import Pathways
 
-config = ConfigurationFactory.from_env()
 
 
 def create_app():
+    config = ConfigurationFactory.from_env()
     app = Flask(__name__)
     app.config.from_object(config)
 

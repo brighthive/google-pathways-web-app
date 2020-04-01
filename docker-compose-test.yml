@@ -21,4 +21,4 @@ services:
       - POSTGRES_PASSWORD=password
       - POSTGRES_DB=google_pathways_api
     ports:
-      - "5433:5432"
+      - "5434:5432"
