@@ -82,10 +82,20 @@ class Configuration(object):
                     self.PSQL_PORT,
                     self.PSQL_DATEBASE
                 )
+                
+                self.SQLALCHEMY_TRACK_MODIFICATIONS = False
 
         else:
             raise ConfigurationError(
                 'Cannot find environment \'{}\' in JSON configuration.')
+
+
+class TestConfiguration(Configuration):
+    """Configuration class for local development."""
+    def __init__(self):
+        self.from_json('test')
+        self.debug = True
+        self.testing = True
 
 
 class LocalConfiguration(Configuration):
@@ -117,6 +127,8 @@ class ProductionConfiguration(Configuration):
 class ConfigurationFactory(object):
     @staticmethod
     def get_config(config_type: str):
+        if config_type.upper() == 'TEST':
+            return TestConfiguration()
         if config_type.upper() == 'LOCAL':
             return LocalConfiguration()
         if config_type.upper() == 'DEVELOPMENT_TESTING':

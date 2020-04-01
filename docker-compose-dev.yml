@@ -3,15 +3,11 @@ version: '3'
 services:
     google_pathways_api:
       image: brighthive/google_pathways_api:latest
-      command: ["./wait-for-it.sh", "db:5432", "--", "bash", "cmd.sh"]
+      command: ["bash", "scripts/serve_app.sh"]
       depends_on:
         - postgres_service
       environment:
         - APP_ENV=LOCAL
-        - PG_USER=brighthive_user
-        - PG_PASSWORD=password
-        - PG_HOSTNAME=postgres_service
-        - PG_DB=google_pathways_api
         - SECRET_KEY=supersecretkey
       ports:
         - "8000:8000"
@@ -19,13 +15,6 @@ services:
         - ./google_pathways_api:/google-pathways-api/google_pathways_api
       stdin_open: true
       tty: true
-    # migrations:
-    #   image: brighthive/google_pathways_api:latest
-    #   depends_on:
-    #     - postgres_service
-    #     - google_pathways_api
-    #   # command: "bash migrations.sh"
-    #   command: ["./wait-for-it.sh", "db:5432", "--", "flask", "db", "upgrade"]
     postgres_service:
       image: postgres:12
       environment:
