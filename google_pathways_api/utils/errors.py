@@ -1,0 +1,2 @@
+class PathwaysProgramDoesNotExist(Exception):
+    pass

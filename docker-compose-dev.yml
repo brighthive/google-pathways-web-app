@@ -1,15 +1,13 @@
 version: '3'
+
 services:
     google_pathways_api:
       image: brighthive/google_pathways_api:latest
+      command: ["bash", "scripts/serve_app.sh"]
       depends_on:
-        - postgres
+        - postgres_service
       environment:
         - APP_ENV=LOCAL
-        - PG_USER=brighthive_user
-        - PG_PASSWORD=password
-        - PG_HOSTNAME=postgres
-        - PG_DB=google_pathways_api
         - SECRET_KEY=supersecretkey
       ports:
         - "8000:8000"
@@ -17,7 +15,7 @@ services:
         - ./google_pathways_api:/google-pathways-api/google_pathways_api
       stdin_open: true
       tty: true
-    postgres:
+    postgres_service:
       image: postgres:12
       environment:
         - POSTGRES_USER=brighthive_user

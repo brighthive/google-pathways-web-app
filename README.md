@@ -11,3 +11,9 @@ docker build -t brighthive/google_pathways_api:latest .
 # Stand up the Flaks app and PSQL container
 docker-compose -f docker-compose-dev.yml up
 ```
+
+## Tests
+
+```
+bash scripts/run_tests.sh
+```
