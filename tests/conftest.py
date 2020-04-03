@@ -8,7 +8,6 @@ from google_pathways_api.app import create_app
 from google_pathways_api.db.models import PathwaysProgram, db
 
 
-
 @pytest.fixture
 def app():
     os.environ['APP_ENV'] = 'TEST'
@@ -29,7 +28,7 @@ def pathways_programs(app):
         "description": "This course helps participants cultivate the attitudes, skills and behaviors of a competent caregiver"
     }
 
-    program_data = { 'updated_at': '2020-03-01', 'pathways_program': json.dumps(json_ld) }
+    program_data = { 'id': '5f109a01-87c6', 'updated_at': '2020-03-23 15:10:50', 'pathways_program': json.dumps(json_ld) }
     program_one = PathwaysProgram(**program_data)
 
     json_ld = {
@@ -39,7 +38,7 @@ def pathways_programs(app):
         "description": "Provides training in Customer Service and Sales"
     }
 
-    program_data = { 'updated_at': '2020-03-01', 'pathways_program': json.dumps(json_ld) }
+    program_data = { 'id': '663dfe-4aca', 'updated_at': '2020-02-01 1:31:10', 'pathways_program': json.dumps(json_ld) }
     program_two = PathwaysProgram(**program_data)
 
     with app.app_context():

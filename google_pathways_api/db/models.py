@@ -12,7 +12,7 @@ class PathwaysProgram(db.Model):
     pathways_program = db.Column(JSONB)
     updated_at = db.Column(db.TIMESTAMP)
 
-    def __init__(self, updated_at, pathways_program):
-        self.id = str(uuid4())
+    def __init__(self, updated_at, pathways_program, id=None):
         self.updated_at = updated_at
         self.pathways_program = pathways_program
+        self.id = id or str(uuid4())
