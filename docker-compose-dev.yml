@@ -3,7 +3,6 @@ version: '3'
 services:
     google_pathways_api:
       image: brighthive/google_pathways_api:latest
-      command: ["bash", "scripts/serve_app.sh"]
       depends_on:
         - postgres_service
       environment:
