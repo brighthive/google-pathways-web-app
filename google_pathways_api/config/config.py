@@ -66,7 +66,7 @@ class Configuration(object):
                 self.PSQL_PASSWORD = fields['psql_password']
                 self.PSQL_HOSTNAME = fields['psql_hostname']
                 self.PSQL_PORT = fields['psql_port']
-                self.PSQL_DATEBASE = fields['psql_database']
+                self.PSQL_DATABASE = fields['psql_database']
                 
                 self.environment = environment
                 self.debug = True
@@ -80,7 +80,7 @@ class Configuration(object):
                     self.PSQL_PASSWORD,
                     self.PSQL_HOSTNAME,
                     self.PSQL_PORT,
-                    self.PSQL_DATEBASE
+                    self.PSQL_DATABASE
                 )
                 
                 self.SQLALCHEMY_TRACK_MODIFICATIONS = False
@@ -96,6 +96,10 @@ class TestConfiguration(Configuration):
         self.from_json('test')
         self.debug = True
         self.testing = True
+
+        self.CONTAINER_NAME = 'postgres-test'
+        self.IMAGE_NAME = 'postgres'
+        self.IMAGE_VERSION = '12'
 
 
 class LocalConfiguration(Configuration):
