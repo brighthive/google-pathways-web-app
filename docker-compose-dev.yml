@@ -17,8 +17,8 @@ services:
     postgres_service:
       image: postgres:12
       environment:
-        - POSTGRES_USER=dt_admin
+        - POSTGRES_USER=brighthive_admin
         - POSTGRES_PASSWORD=passw0rd
-        - POSTGRES_DB=pathways_test
+        - POSTGRES_DB=pathways
       ports:
-        - "5432:5432"
+        - "10031:5432"
