@@ -11,6 +11,7 @@ from google_pathways_api.app import create_app
 from google_pathways_api.config.config import ConfigurationFactory
 from google_pathways_api.db.models import PathwaysProgram, db
 
+DO_NOT_KILL_DB = os.getenv("DO_NOT_KILL_DB", False)
 os.environ['APP_ENV'] = 'TEST'
 testing_app = create_app()
 
@@ -60,6 +61,9 @@ class PostgreSQLContainer:
 
     def start_container(self):
         """Start PostgreSQL Container."""
+        if DO_NOT_KILL_DB and self.get_db_if_running():
+            return
+
         if self.get_db_if_running():
             return
 
@@ -82,6 +86,9 @@ class PostgreSQLContainer:
         apply_migrations()
 
     def stop_if_running(self):
+        if DO_NOT_KILL_DB:
+            return
+        
         try:
             running = self.docker_client.containers.get(self.config.CONTAINER_NAME)
             logging.info(f"Killing running container '{self.config.CONTAINER_NAME}'")
