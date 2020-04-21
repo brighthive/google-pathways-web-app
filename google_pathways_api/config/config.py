@@ -97,7 +97,7 @@ class TestConfiguration(Configuration):
         self.debug = True
         self.testing = True
 
-        self.CONTAINER_NAME = 'postgres-test'
+        self.CONTAINER_NAME = 'test_postgres_service'
         self.IMAGE_NAME = 'postgres'
         self.IMAGE_VERSION = '12'
 

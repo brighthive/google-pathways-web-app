@@ -15,5 +15,5 @@ docker-compose -f docker-compose-dev.yml up
 ## Tests
 
 ```
-bash scripts/run_tests.sh
+pipenv run pytest --log-cli-level=INFO
 ```
