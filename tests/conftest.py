@@ -18,8 +18,8 @@ testing_app = create_app()
 @pytest.fixture
 def app():
     """
-    This testing suite uses `pytest-flask`. 
-    `pytest-flask` comes with an out-of-the-box test client fixture (i.e., an instance of flask.Flask.test_client).
+    This test suite uses `pytest-flask`. 
+    `pytest-flask` comes with an out-of-the-box test `client` fixture (i.e., an instance of flask.Flask.test_client).
     The client fixture is nifty: it pushes the request context to tests, so you can access context-bound objects
     without a context manager.
 
@@ -31,14 +31,13 @@ def app():
 class PostgreSQLContainer:
     """A PostgreSQL Container Object.
     This class provides a mechanism for managing PostgreSQL Docker containers
-    so that it can be injected into unit tests.
+    so that a database can be injected into tests.
     Class Attributes:
         config (object): A Configuration Factory object.
         container (object): The Docker container object.
-        for schema_dict in schema_dicts:
-            docker_client (object): Docker client.
-            db_environment (list): Database environment configuration variables.
-            db_ports (dict): Dictionary of database port mappings.
+        docker_client (object): Docker client.
+        db_environment (list): Database environment configuration variables.
+        db_ports (dict): Dictionary of database port mappings.
     """
 
     def __init__(self):
@@ -53,7 +52,7 @@ class PostgreSQLContainer:
         self.db_ports = {"5432/tcp": self.config.PSQL_PORT}
 
     def get_postgresql_image(self):
-        """Output the PostgreSQL image from the configuation.
+        """Output the PostgreSQL image from the configuration.
         Returns:
             str: The PostgreSQL image name and version tag.
         """
@@ -78,7 +77,7 @@ class PostgreSQLContainer:
             environment=self.db_environment,
             ports=self.db_ports,
         )
-        logging.info("PostgreSQL container running")
+        logging.info("PostgreSQL container running!")
 
         apply_migrations()
 
@@ -94,7 +93,7 @@ class PostgreSQLContainer:
 
     def get_db_if_running(self):
         """
-        Return the container or None
+        Return the container or None.
         """
         try:
             return self.docker_client.containers.get(self.config.CONTAINER_NAME)
@@ -132,15 +131,27 @@ def apply_migrations():
 
 
 @pytest.fixture(scope="session", autouse=True)
-def database(autouse=True):
+def database():
     postgres = PostgreSQLContainer()
     postgres.start_container()
     yield db
     postgres.stop_if_running()
 
 
+@pytest.fixture(autouse=True)
+def database_session():    
+    session = db.session
+
+    yield session
+
+    session.query(PathwaysProgram).delete()
+    session.commit()
+    session.remove()
+
+
+
 @pytest.fixture
-def pathways_programs(client):
+def pathways_programs(client, database_session):
     '''
     A fixture that adds two programs to the database.
     '''
@@ -164,6 +175,6 @@ def pathways_programs(client):
     program_data = { 'id': '663dfe-4aca', 'updated_at': '2020-02-01 1:31:10', 'pathways_program': json.dumps(json_ld) }
     program_two = PathwaysProgram(**program_data)
 
-    db.session.add(program_one)
-    db.session.add(program_two)
-    db.session.commit()
+    database_session.add(program_one)
+    database_session.add(program_two)
+    database_session.commit()
