@@ -134,26 +134,19 @@ def apply_migrations():
 def database():
     postgres = PostgreSQLContainer()
     postgres.start_container()
+
     yield db
+
     postgres.stop_if_running()
 
 
-@pytest.fixture(autouse=True)
-def database_session():    
-    session = db.session
-
-    yield session
-
-    session.query(PathwaysProgram).delete()
-    session.commit()
-    session.remove()
-
-
-
 @pytest.fixture
-def pathways_programs(client, database_session):
+def pathways_programs(client):
     '''
-    A fixture that adds two programs to the database.
+    A fixture that adds two programs to the database transaction (i.e., SQLAlchemy session).
+
+    Note! The fixture does not `commit` the programs to the database. Instead, the SQLAlchemy session
+    holds the objects in-memory, and at the end of each test, the session closes and discards objects. 
     '''
     json_ld = {
         "@context": "http://schema.org/",
@@ -175,6 +168,5 @@ def pathways_programs(client, database_session):
     program_data = { 'id': '663dfe-4aca', 'updated_at': '2020-02-01 1:31:10', 'pathways_program': json.dumps(json_ld) }
     program_two = PathwaysProgram(**program_data)
 
-    database_session.add(program_one)
-    database_session.add(program_two)
-    database_session.commit()
+    db.session.add(program_one)
+    db.session.add(program_two)
