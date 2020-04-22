@@ -7,9 +7,6 @@ def test_pathways_ep(client, pathways_programs):
     resp = client.get('/pathways')
 
     assert resp.status_code == 200
-    
-    db.session.query(PathwaysProgram).delete()
-    db.session.commit()
 
 
 def test_pathways_script(client, pathways_programs):
@@ -20,18 +17,12 @@ def test_pathways_script(client, pathways_programs):
 
     assert script_tag in clean_resp_no_space 
 
-    db.session.query(PathwaysProgram).delete()
-    db.session.commit()
-
 
 def test_pathways_links(client, pathways_programs):
     resp = client.get('/pathways')
     links = '"links": [{"rel": "next", "href": "/pathways?page=2"}, {"rel": "prev", "href": ""}]'
 
     assert links in resp.data.decode("utf-8")
-
-    db.session.query(PathwaysProgram).delete()
-    db.session.commit()
 
 
 @pytest.mark.parametrize('page,program_type', [
@@ -42,6 +33,3 @@ def test_pathways_pagination(client, pathways_programs, page, program_type):
     resp = client.get(f'/pathways?page={page}')
 
     assert program_type in resp.data.decode("utf-8")
-
-    db.session.query(PathwaysProgram).delete()
-    db.session.commit()

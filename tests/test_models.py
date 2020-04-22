@@ -10,7 +10,7 @@ json_ld = {
 }
 
 
-def test_pathways_programs_default_id():
+def test_pathways_programs_default_id(client):
     program = PathwaysProgram(
         updated_at='2020-02-01 1:31:10',
         pathways_program=json.dumps(json_ld)
@@ -19,7 +19,7 @@ def test_pathways_programs_default_id():
     assert program.id != None
 
 
-def test_pathways_programs_json():
+def test_pathways_programs_json(client):
     '''
     Assert that the `pathways_program` stores JSON, which can be decoded using the 
     Python `json` module.
