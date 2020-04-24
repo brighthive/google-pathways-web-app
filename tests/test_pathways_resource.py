@@ -20,7 +20,7 @@ def test_pathways_script(client, pathways_programs):
 
 def test_pathways_links(client, pathways_programs):
     resp = client.get('/pathways')
-    links = '"links": [{"rel": "next", "href": "/pathways?page=2"}, {"rel": "prev", "href": ""}]'
+    links = "/pathways?page=2"
 
     assert links in resp.data.decode("utf-8")
 

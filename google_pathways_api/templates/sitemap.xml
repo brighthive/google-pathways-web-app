@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+   <url>
+      <loc>{{ base_url }}pathways</loc>
+      <lastmod>2020-04-24</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+   </url>
+
+   {% for program in pathways_programs %}
+   <url>
+      <loc>{{ base_url }}pathways?page={{loop.index}}</loc>
+      <xhtml:link rel="amphtml" href="{{ base_url }}?page={{loop.index}}" />
+      <lastmod>{{ program.updated_at }}</lastmod>
+      <changefreq>weekly</changefreq>
+   </url>
+   {% endfor %}
+
+</urlset> 

@@ -62,6 +62,8 @@ class Configuration(object):
         if environment in data.keys():
             fields = data[environment]
             try:
+                self.BASE_URL = fields['base_url']
+
                 self.PSQL_USER = fields['psql_user']
                 self.PSQL_PASSWORD = fields['psql_password']
                 self.PSQL_HOSTNAME = fields['psql_hostname']
