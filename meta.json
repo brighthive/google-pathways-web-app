@@ -1,0 +1,41 @@
+{
+    "name": "BrightHive Google Pathways Web App",
+    "description": "A web app that makes programs data available to Google Pathways",
+    "live": false,
+    "support": {
+        "email": "",
+        "github": "",
+        "documentation": "https://github.com/brighthive/google-pathways-api"
+    },
+    "ops": {
+        "email": "",
+        "github": "",
+        "documentation": ""
+    },
+    "bcp": {
+        "tier": 2,
+        "email": "",
+        "github": ""
+    },
+    "security": {
+        "tier": 1,
+        "email": "",
+        "github": "",
+        "threatmodel": "",
+        "soxdata": false,
+        "pcidata": false,
+        "hippadata": false,
+        "piidata": true,
+        "codereview": "",
+        "training": "",
+        "linting": "",
+        "securityrequirements": "",
+        "securityunittests": "",
+        "dependencies": "",
+        "staticanalysis": "",
+        "dynamicanalysis": "",
+        "pentest": "",
+        "signal": "",
+        "audit": ""
+    }
+}
