@@ -19,12 +19,8 @@ class Pathways(Resource):
         prev_url = ''
         if pathways_programs.has_prev:
             prev_url = url_for('pathways', page=pathways_programs.prev_num)
-        
-        links = []
-        links.append({"rel": "next", "href": next_url })
-        links.append({"rel": "prev", "href": prev_url })
 
-        return links
+        return next_url, prev_url
 
     def get(self):
         '''
@@ -37,22 +33,19 @@ class Pathways(Resource):
             .order_by(PathwaysProgram.updated_at.desc()) \
             .paginate(page, entries_per_page, False)
 
-        links = self._make_links(pathways_programs)
+        next_url, prev_url = self._make_links(pathways_programs)
 
         try: 
             pathways_program_json_ld = pathways_programs.items[0].pathways_program
         except IndexError:
             pathways_program_json_ld = {}
 
-        pathways_program_json_ld = json.dumps(pathways_program_json_ld)
-
-        pathways_program_to_render = {
-            "program": json.loads(pathways_program_json_ld),
-            "links": links
-        }
+        pathways_program_for_script_tag = json.dumps(pathways_program_json_ld)
 
         return make_response(render_template('pathways.html', 
-                                pathways_programs=pathways_program_json_ld, 
-                                pathways_program_to_render=json.dumps(pathways_program_to_render)), 200, headers)
+                                next_url=next_url,
+                                prev_url=prev_url,
+                                pathways_programs_for_script_tag=pathways_program_for_script_tag, 
+                                pathways_program_to_render=json.dumps(pathways_program_json_ld, sort_keys = False, indent = 4)), 200, headers)
 
 

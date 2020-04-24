@@ -3,10 +3,30 @@
   <head>
     <title>Pathways Program</title>
     <script type="application/ld+json">
-        {{ pathways_programs | safe }}
+        {{ pathways_program_for_script_tag | safe }}
     </script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   </head>
-  <body>   
-    {{ pathways_program_to_render | safe }}
+  <body> 
+    <div class="container-fluid pl-5">
+      <div class="row pt-5">
+        <div class="col">
+          <h2>Program Schema</h2>  
+          <pre>{{ pathways_program_to_render | safe }}</pre>
+        </div>
+      </div>
+      <div class="row pb-5">
+        <div class="col">
+          <h2>See More Programs</h2>
+          {% if next_url %}
+            <a href="{{next_url}}">Next Program</a>
+          {% endif %}
+          {% if prev_url %}
+            <a href="{{prev_url}}">Previous Program</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
   </body>
 </html>
