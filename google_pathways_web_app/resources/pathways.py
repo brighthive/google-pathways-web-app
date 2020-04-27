@@ -55,7 +55,7 @@ def pathways():
         program_last_updated = pathways_programs.items[0].updated_at
         headers = {"Content-Type": "text/html", "Last-Modified": program_last_updated}
     except IndexError:
-        return make_response("", 404)
+        return make_response("Resource not found", 404)
 
     if not _has_been_modified_since(request, program_last_updated):
         return make_response("", 304)
