@@ -3,8 +3,8 @@ from datetime import datetime, timedelta
 
 from flask import Blueprint, make_response, render_template, request, url_for
 
-from google_pathways_api.db.models import PathwaysProgram
-from google_pathways_api.utils.errors import PathwaysProgramDoesNotExist
+from google_pathways_web_app.db.models import PathwaysProgram
+from google_pathways_web_app.utils.errors import PathwaysProgramDoesNotExist
 
 pathways_blueprint = Blueprint("pathways", __name__)
 

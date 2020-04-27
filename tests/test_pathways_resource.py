@@ -1,6 +1,6 @@
 import pytest
 
-from google_pathways_api.db.models import PathwaysProgram, db
+from google_pathways_web_app.db.models import PathwaysProgram, db
 
 
 def test_pathways_ep(client, pathways_programs):

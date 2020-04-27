@@ -7,9 +7,9 @@ import docker
 import pytest
 from flask_migrate import upgrade
 
-from google_pathways_api.app import create_app
-from google_pathways_api.config.config import ConfigurationFactory
-from google_pathways_api.db.models import PathwaysProgram, db
+from google_pathways_web_app.app import create_app
+from google_pathways_web_app.config.config import ConfigurationFactory
+from google_pathways_web_app.db.models import PathwaysProgram, db
 
 DO_NOT_KILL_DB = os.getenv("DO_NOT_KILL_DB", False)
 os.environ["APP_ENV"] = "TEST"

@@ -1,8 +1,8 @@
 version: '3'
 
 services:
-    google_pathways_api:
-      image: brighthive/google_pathways_api:latest
+    google_pathways_web_app:
+      image: brighthive/google_pathways_web_app:latest
       depends_on:
         - postgres_service
       environment:
@@ -11,7 +11,7 @@ services:
       ports:
         - "8000:8000"
       volumes:
-        - ./google_pathways_api:/google-pathways-api/google_pathways_api
+        - ./google_pathways_web_app:/google-pathways-web-app/google_pathways_web_app
       stdin_open: true
       tty: true
     postgres_service:

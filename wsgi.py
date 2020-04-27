@@ -1,4 +1,4 @@
-from google_pathways_api.app import create_app
+from google_pathways_web_app.app import create_app
 
 app = create_app()
 
