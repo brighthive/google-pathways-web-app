@@ -20,5 +20,12 @@ def site_map():
 
 @static_blueprint.route("/robots.txt", methods=["GET"])
 def robots():
-    """Returns a https://support.google.com/webmasters/answer/6062596?hl=en."""
+    """Returns `robots.txt` data, which tells the Google crawlers where to find
+    the Sitemap.
+
+    We use a route that returns dynamically constructed text (rather
+    than serving a static file) because the Sitemap property MUST BE an
+    absolute path. This solution accounts for the multiple deployment
+    environments and domain namespaces BrightHive manages.
+    """
     return f"Sitemap: {config.BASE_URL}/sitemap.xml"
