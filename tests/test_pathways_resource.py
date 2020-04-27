@@ -33,3 +33,25 @@ def test_pathways_pagination(client, pathways_programs, page, program_type):
     resp = client.get(f"/pathways?page={page}")
 
     assert program_type in resp.data.decode("utf-8")
+
+
+def test_has_been_modified_since_200(client, pathways_programs):
+    """Programs fixtures have the `updated_at` timestamp set to `2020-03-23
+    15:10:50`."""
+    resp = client.get(
+        "/pathways?page=2",
+        headers={"If-Modified-Since": "Sun, 22 Mar 2020 07:00:00 GMT"},
+    )
+
+    assert resp.status_code == 200
+
+
+def test_has_been_modified_since_304(client, pathways_programs):
+    """Programs fixtures have the `updated_at` timestamp set to `2020-03-23
+    15:10:50`."""
+    resp = client.get(
+        "/pathways?page=2",
+        headers={"If-Modified-Since": "Wed, 25 Mar 2020 07:00:00 GMT"},
+    )
+
+    assert resp.status_code == 304

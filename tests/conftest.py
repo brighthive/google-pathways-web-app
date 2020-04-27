@@ -182,7 +182,7 @@ def pathways_programs(client):
 
     program_data = {
         "id": "663dfe-4aca",
-        "updated_at": "2020-02-01 1:31:10",
+        "updated_at": "2020-03-23 15:10:50",
         "pathways_program": json.dumps(json_ld),
     }
     program_two = PathwaysProgram(**program_data)
