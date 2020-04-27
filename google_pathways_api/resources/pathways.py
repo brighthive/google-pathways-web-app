@@ -2,13 +2,10 @@ import json
 
 from flask import Blueprint, make_response, render_template, request, url_for
 
-from google_pathways_api.config.config import ConfigurationFactory
 from google_pathways_api.db.models import PathwaysProgram
 from google_pathways_api.utils.errors import PathwaysProgramDoesNotExist
 
-config = ConfigurationFactory.from_env()
-
-blueprint = Blueprint("pathways", __name__)
+pathways_blueprint = Blueprint("pathways", __name__)
 
 
 def _make_links(pathways_programs):
@@ -23,7 +20,7 @@ def _make_links(pathways_programs):
     return next_url, prev_url
 
 
-@blueprint.route("/pathways", methods=["GET"])
+@pathways_blueprint.route("/pathways", methods=["GET"])
 def pathways():
     """Returns a paginated view of all Pathways-formatted programs – one
     program per page."""
@@ -55,15 +52,4 @@ def pathways():
         ),
         200,
         headers,
-    )
-
-
-@blueprint.route("/sitemap.xml", methods=["GET"])
-def site_map():
-    pathways_programs = PathwaysProgram.query.order_by(
-        PathwaysProgram.updated_at.desc()
-    )
-
-    return render_template(
-        "sitemap.xml", pathways_programs=pathways_programs, base_url=config.BASE_URL
     )
