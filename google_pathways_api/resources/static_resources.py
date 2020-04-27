@@ -28,4 +28,6 @@ def robots():
     absolute path. This solution accounts for the multiple deployment
     environments and domain namespaces BrightHive manages.
     """
-    return f"Sitemap: {config.BASE_URL}/sitemap.xml"
+
+    robots_dot_txt = f"User-agent: google \nUser-agent: googlebot \nAllow: / \n\nUser-agent: * \nDisallow: / \n\nSitemap: {config.BASE_URL}/sitemap.xml"
+    return robots_dot_txt
