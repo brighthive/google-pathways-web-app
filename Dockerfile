@@ -10,7 +10,7 @@ ADD Pipfile Pipfile
 ADD Pipfile.lock Pipfile.lock
 RUN pip install pipenv && pipenv install --system && pipenv install --dev --system
 
-ADD scripts scripts 
+ADD scripts scripts
 RUN chmod +x scripts/serve_app.sh
 RUN chmod +x scripts/migrate.sh
 
