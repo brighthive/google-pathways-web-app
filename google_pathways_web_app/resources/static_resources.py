@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template
 
-from google_pathways_api.config.config import ConfigurationFactory
-from google_pathways_api.db.models import PathwaysProgram
+from google_pathways_web_app.config.config import ConfigurationFactory
+from google_pathways_web_app.db.models import PathwaysProgram
 
 config = ConfigurationFactory.from_env()
 static_blueprint = Blueprint("static", __name__)

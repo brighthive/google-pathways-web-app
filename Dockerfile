@@ -1,8 +1,8 @@
 FROM python:3.7
 
-WORKDIR /google-pathways-api
+WORKDIR /google-pathways-web-app
 
-ADD google_pathways_api google_pathways_api
+ADD google_pathways_web_app google_pathways_web_app
 ADD migrations migrations
 ADD wsgi.py wsgi.py
 
@@ -14,4 +14,4 @@ ADD scripts scripts
 RUN chmod +x scripts/serve_app.sh
 RUN chmod +x scripts/migrate.sh
 
-ENTRYPOINT [ "/google-pathways-api/scripts/serve_app.sh" ]
+ENTRYPOINT [ "/google-pathways-web-app/scripts/serve_app.sh" ]

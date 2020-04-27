@@ -4,7 +4,7 @@
 
 ```bash
 # Build the image
-docker build -t brighthive/google_pathways_api:latest .
+docker build -t brighthive/google_pathways_web_app:latest .
 ```
 
 ```bash

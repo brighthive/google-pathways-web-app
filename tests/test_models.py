@@ -1,6 +1,6 @@
 import json
 
-from google_pathways_api.db.models import PathwaysProgram
+from google_pathways_web_app.db.models import PathwaysProgram
 
 json_ld = {
     "@context": "http://schema.org/",
