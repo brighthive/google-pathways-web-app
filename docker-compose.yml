@@ -16,6 +16,7 @@ services:
       tty: true
     postgres_service:
       image: postgres:12
+      env_file: .env
       environment:
         - POSTGRES_USER=${POSTGRES_USER}
         - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
