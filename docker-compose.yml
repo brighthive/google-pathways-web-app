@@ -21,8 +21,6 @@ services:
         - POSTGRES_USER=${POSTGRES_USER}
         - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
         - POSTGRES_DB=${POSTGRES_DB}
-      volumes:
-        - ./pgdata:/var/lib/postgresql/data/pgdata
       ports:
         - "10031:5432"
     nginx:
