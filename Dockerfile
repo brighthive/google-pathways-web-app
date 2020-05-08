@@ -3,7 +3,6 @@ FROM python:3.7
 WORKDIR /google-pathways-web-app
 
 ADD google_pathways_web_app google_pathways_web_app
-ADD data data
 ADD migrations migrations
 ADD wsgi.py wsgi.py
 
