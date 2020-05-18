@@ -1,5 +1,6 @@
 version: '3'
-
+# We use this docker-compose file for deployment on the GII servers. 
+# It requires a .env file (mostly, with POSTGRES credentials) at the root of the repo.
 services:
     google_pathways_web_app:
       image: brighthive/google_pathways_web_app:latest
