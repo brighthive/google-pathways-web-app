@@ -67,7 +67,7 @@ pipeline {
       /*
         If the testing stage passes, it will be proceed to building the image for the AWS ECR.
       */
-      stage('Building Image') {
+      /*stage('Building Image') {
         when {
           expression {
             env.GIT_BRANCH == env.BRANCH_IMAGE_BUILD_PUSH
@@ -76,11 +76,11 @@ pipeline {
         steps {
           sh 'docker build -t $REGISTRY_NAME .'
         }
-      }
+      }*/
       /*
         Will publish the image just build on Jenkins to AWS ECR as latest and the current build number
       */
-      stage('Publish Image') {
+      /*stage('Publish Image') {
         when {
           expression {
             env.GIT_BRANCH == env.BRANCH_IMAGE_BUILD_PUSH
@@ -93,11 +93,11 @@ pipeline {
           sh 'docker tag $REGISTRY_NAME:latest $REGISTRY_URI/$REGISTRY_NAME:$TAGNAME'
           sh 'docker push $REGISTRY_URI/$REGISTRY_NAME:$TAGNAME'
         }
-      }
+      }*/
       /*
         Will clean up the Jenkins server of any cached builds or source. (Only the python and db images are saved so they don't have to be pulled every time)
       */
-      stage('Clean Up') {
+      /*stage('Clean Up') {
         when {
           expression {
             env.GIT_BRANCH == env.BRANCH_IMAGE_BUILD_PUSH
@@ -121,7 +121,7 @@ pipeline {
             sh 'ssh -o StrictHostKeyChecking=no -T $K8_USERNAME@$K8_HOST kubectl set image deployment $K8_APP_DEPLOYMENT_NAME $K8_APP_SERVICE_NAME=$REGISTRY_URI/$REGISTRY_NAME:$TAGNAME'
           }
         }
-      }
+      }*/
   }
 }
 
