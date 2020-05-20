@@ -6,7 +6,7 @@ class ConfigurationError(Exception):
     pass
 
 
-class TestingConfiguration(Object):
+class TestingConfiguration(object):
     """Configuration class for local development."""
 
     def __init__(self):
@@ -35,7 +35,7 @@ class TestingConfiguration(Object):
         self.SQLALCHEMY_TRACK_MODIFICATIONS = False
 
         
-class JenkinsConfiguration(Object):
+class JenkinsConfiguration(object):
     """Configuration class for local development."""
 
     def __init__(self):
@@ -64,7 +64,7 @@ class JenkinsConfiguration(Object):
         self.SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 
-class LocalConfiguration(Object):
+class LocalConfiguration(object):
     """Configuration class for local development."""
 
     def __init__(self):
@@ -88,7 +88,7 @@ class LocalConfiguration(Object):
                 
         self.SQLALCHEMY_TRACK_MODIFICATIONS = False
 
-class ProductionConfiguration(Object):
+class ProductionConfiguration(object):
     """Configuratuon class for production deployment."""
 
     def __init__(self):
