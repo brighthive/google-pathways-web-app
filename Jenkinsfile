@@ -132,7 +132,7 @@ def initialize() {
     // AWS ERC Parameters / Push Rules
     env.REGISTRY_NAME = 'brighthive/google-pathways-web-app'
     env.REGISTRY_URI = '396527728813.dkr.ecr.us-east-2.amazonaws.com'
-    env.BRANCH_IMAGE_BUILD_PUSH = 'jenkins-config'
+    env.BRANCH_IMAGE_BUILD_PUSH = 'PR-10'
     env.BRANCH_ALLOW_DEPLOYMENT = 'master'
     env.SYSTEM_NAME = 'Jenkins'
     env.IS_JENKINS_TEST = '1'
