@@ -1,5 +1,5 @@
 version: '3'
-
+# It requires a .env file (mostly, with POSTGRES credentials) at the root of the repo.
 services:
     google_pathways_web_app:
       image: brighthive/google_pathways_web_app:latest
@@ -8,6 +8,12 @@ services:
       environment:
         - APP_ENV=PRODUCTION
         - SECRET_KEY=${SECRET_KEY}
+        - PSQL_USER=${POSTGRES_USER}
+        - PSQL_PASSWORD=${POSTGRES_PASSWORD}
+        - PSQL_HOSTNAME=postgres_service
+        - PSQL_PORT=5432
+        - PSQL_DATABASE=pathways
+        - BASE_URL=http://0.0.0.0:8000
       ports:
         - "8000:8000"
       volumes:
@@ -16,19 +22,9 @@ services:
       tty: true
     postgres_service:
       image: postgres:12
-      env_file: .env
       environment:
         - POSTGRES_USER=${POSTGRES_USER}
         - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-        - POSTGRES_DB=${POSTGRES_DB}
+        - POSTGRES_DB=pathways
       ports:
-        - "10031:5432"
-    nginx:
-      image: nginx:1.15-alpine
-      ports:
-          - "443:443"
-      volumes:
-          - ./data/nginx-conf/nginx.conf:/etc/nginx/nginx.conf
-          - ./data/nginx:/etc/nginx/conf.d
-      command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
-      restart: on-failure
+        - "5432:5432"

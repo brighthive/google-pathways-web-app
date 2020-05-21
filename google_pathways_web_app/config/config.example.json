@@ -1,9 +1,0 @@
-{
-    "local": {
-        "psql_user": "brighthive_user",
-        "psql_password": "password",
-        "psql_hostname": "localhost",
-        "psql_port": "5432",
-        "psql_database": "google_pathways"
-    }
-}

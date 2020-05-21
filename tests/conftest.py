@@ -12,7 +12,7 @@ from google_pathways_web_app.config.config import ConfigurationFactory
 from google_pathways_web_app.db.models import PathwaysProgram, db
 
 DO_NOT_KILL_DB = os.getenv("DO_NOT_KILL_DB", False)
-os.environ["APP_ENV"] = "TEST"
+os.environ["APP_ENV"] = "TESTING"
 testing_app = create_app()
 
 
@@ -43,7 +43,7 @@ class PostgreSQLContainer:
     """
 
     def __init__(self):
-        self.config = ConfigurationFactory.get_config("TEST")
+        self.config = ConfigurationFactory.get_config("TESTING")
         self.container = None
         self.docker_client = docker.from_env()
         self.db_environment = [
@@ -85,7 +85,6 @@ class PostgreSQLContainer:
         )
         logging.info("PostgreSQL container running!")
 
-        apply_migrations()
 
     def stop_if_running(self):
         if DO_NOT_KILL_DB:
@@ -142,12 +141,18 @@ def apply_migrations():
 
 @pytest.fixture(scope="session", autouse=True)
 def database():
-    postgres = PostgreSQLContainer()
-    postgres.start_container()
+    is_jenkins = bool(int(os.getenv('IS_JENKINS_TEST', '0')))
+
+    if is_jenkins != True:
+        postgres = PostgreSQLContainer()
+        postgres.start_container()
+
+    apply_migrations()
 
     yield db
 
-    postgres.stop_if_running()
+    if is_jenkins != True: 
+        postgres.stop_if_running()
 
 
 @pytest.fixture

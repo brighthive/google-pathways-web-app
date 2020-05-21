@@ -1,0 +1,36 @@
+version: '3'
+# We use this docker-compose file for deployment on the GII servers.
+# It requires a .env file (mostly, with POSTGRES credentials) at the root of the repo.
+services:
+    google_pathways_web_app:
+      image: brighthive/google_pathways_web_app:latest
+      depends_on:
+        - postgres_service
+      environment:
+        - APP_ENV=PRODUCTION
+        - SECRET_KEY=${SECRET_KEY}
+        - PSQL_USER=${PSQL_USER}
+        - PSQL_PASSWORD=${PSQL_PASSWORD}
+        - PSQL_HOSTNAME=${PSQL_HOSTNAME}
+        - PSQL_PORT=${PSQL_PORT}
+        - PSQL_DATABASE=${PSQL_DATABASE}
+      ports:
+        - "8000:8000"
+    postgres_service:
+      image: postgres:12
+      env_file: .env
+      environment:
+        - POSTGRES_USER=${POSTGRES_USER}
+        - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+        - POSTGRES_DB=${POSTGRES_DB}
+      ports:
+        - "10031:5432"
+    nginx:
+      image: nginx:1.15-alpine
+      ports:
+          - "443:443"
+      volumes:
+          - ./data/nginx-conf/nginx.conf:/etc/nginx/nginx.conf
+          - ./data/nginx:/etc/nginx/conf.d
+      command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+      restart: on-failure
