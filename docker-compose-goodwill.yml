@@ -16,10 +16,6 @@ services:
         - PSQL_DATABASE=${PSQL_DATABASE}
       ports:
         - "8000:8000"
-      volumes:
-        - ./google_pathways_web_app:/google-pathways-web-app/google_pathways_web_app
-      stdin_open: true
-      tty: true
     postgres_service:
       image: postgres:12
       env_file: .env
