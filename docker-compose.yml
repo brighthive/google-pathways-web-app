@@ -3,7 +3,7 @@ version: '3'
 # It requires a .env file (mostly, with POSTGRES credentials) at the root of the repo.
 services:
     google_pathways_web_app:
-      image: googleapi:latest
+      image: brighthive/google_pathways_web_app:latest
       depends_on:
         - postgres_service
       environment:
