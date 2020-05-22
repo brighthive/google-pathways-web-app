@@ -2,10 +2,6 @@ import json
 import os
 
 
-class ConfigurationError(Exception):
-    pass
-
-
 class TestingConfiguration(object):
     """Configuration class for local development."""
 
@@ -87,6 +83,7 @@ class LocalConfiguration(object):
         )
                 
         self.SQLALCHEMY_TRACK_MODIFICATIONS = False
+
 
 class ProductionConfiguration(object):
     """Configuratuon class for production deployment."""
