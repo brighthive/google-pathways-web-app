@@ -38,6 +38,7 @@ docker build -t brighthive/google_pathways_web_app:latest .
 docker-compose up
 ```
 4. **Add data**
+
 Likely, you arrived at this repo, because you have Pathways-ready programs data: populate the database with (your own custom) scripts that directly connect with the `psql` database. 
 
 Need some inspiration? BrightHive engineers can use the scripts in the `etl-goodwill` repo to populate the database or as resource for crafting an ETL pipeline.
@@ -59,5 +60,6 @@ DO_NOT_KILL_DB=true pipenv run pytest
 ```
 
 ## Team
-Regina Compton (Software Engineer)
-John O'Sullivan (DevOps - Software Engineer)
+
+* Regina Compton (Software Engineer)
+* John O'Sullivan (DevOps - Software Engineer)
