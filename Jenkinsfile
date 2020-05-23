@@ -147,6 +147,8 @@ def initialize() {
     env.POSTGRES_USER = 'dt_admin_test'
     env.POSTGRES_PASSWORD = 'passw0rd'
     env.POSTGRES_DB_NAME = 'pathways_test'
+    // Flask App Configs
+    env.BASE_URL = 'http://0.0.0.0:8000'
     // K8 Deployment Parameters
     env.K8_SERVER_SSH_KEY_NAME = 'dev-k8-server-ssh'
     env.K8_APP_SERVICE_NAME = 'pathways-app'
