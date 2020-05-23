@@ -67,12 +67,9 @@ class LocalConfiguration(object):
         self.debug = True
         self.testing = True
 
-        self.BASE_URL = "http://0.0.0.0:8000"
-        self.PSQL_USER = "brighthive_admin"
-        self.PSQL_PASSWORD = "passw0rd"
-        # self.BASE_URL = os.getenv("BASE_URL", "")
-        # self.PSQL_USER = os.getenv("PSQL_USER", "")
-        # self.PSQL_PASSWORD = os.getenv("PSQL_PASSWORD", "")
+        self.BASE_URL = os.getenv("BASE_URL", "")
+        self.PSQL_USER = os.getenv("PSQL_USER", "")
+        self.PSQL_PASSWORD = os.getenv("PSQL_PASSWORD", "")
         self.PSQL_HOSTNAME = "postgres_service"
         self.PSQL_PORT = "5432"
         self.PSQL_DATABASE = "pathways"

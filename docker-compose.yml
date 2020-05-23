@@ -1,5 +1,5 @@
 version: '3'
-# It requires a .env file (mostly, with POSTGRES credentials) at the root of the repo.
+
 services:
     google_pathways_web_app:
       image: brighthive/google_pathways_web_app:latest
@@ -13,7 +13,7 @@ services:
         - PSQL_HOSTNAME=postgres_service
         - PSQL_PORT=5432
         - PSQL_DATABASE=pathways
-        - BASE_URL=http://0.0.0.0:8000
+        - BASE_URL=${BASE_URL}
       ports:
         - "8000:8000"
       volumes:
