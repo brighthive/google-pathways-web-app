@@ -9,11 +9,12 @@ services:
       environment:
         - APP_ENV=PRODUCTION
         - SECRET_KEY=${SECRET_KEY}
-        - PSQL_USER=${PSQL_USER}
-        - PSQL_PASSWORD=${PSQL_PASSWORD}
-        - PSQL_HOSTNAME=${PSQL_HOSTNAME}
-        - PSQL_PORT=${PSQL_PORT}
-        - PSQL_DATABASE=${PSQL_DATABASE}
+        - PSQL_USER=${POSTGRES_USER}
+        - PSQL_PASSWORD=${POSTGRES_PASSWORD}
+        - PSQL_HOSTNAME=postgres_service
+        - PSQL_PORT=5432
+        - PSQL_DATABASE=pathways
+        - BASE_URL=${BASE_URL}
       ports:
         - "8000:8000"
     postgres_service:
@@ -22,7 +23,7 @@ services:
       environment:
         - POSTGRES_USER=${POSTGRES_USER}
         - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-        - POSTGRES_DB=${POSTGRES_DB}
+        - POSTGRES_DB=pathways
       ports:
         - "10031:5432"
     nginx:
